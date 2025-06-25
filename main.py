@@ -8,7 +8,7 @@ from collections import defaultdict
 import TgBotChess
 
 # Настройка таблицы
-file = "chrome-unity-462018-c2-f17f20b8d4ac.json"
+file = ""
 url_Table = "https://docs.google.com/spreadsheets/d/1IirhmoGPCFm8cPO_mqShkGMnFKS211V0AIaIyvu2YLs/edit?gid=0#gid=0"
 
 # ПОдключение к таблице
