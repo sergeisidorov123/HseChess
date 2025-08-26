@@ -249,7 +249,6 @@ def main_func():
 
 if __name__ == "__main__":
     timezone = pytz.timezone('Asia/Yekaterinburg')
-
     schedule.every().day.at("20:00").do(main_func)
 
 
