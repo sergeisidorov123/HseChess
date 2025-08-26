@@ -1,6 +1,6 @@
 import telebot
 import os
-from dotenv import load_dotenv 
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -13,14 +13,13 @@ bot = telebot.TeleBot(TELEGRAM_TOKEN)
 def send_tournament_results(link_next, tournament_date, top_players, spreadsheet_url):
     try:
         if not link_next:
-            print(link_next)
-            message = 'Ссылка на турнир появится чуть позже\n'
+            pass
         else:
             message = f"Ссылка на следующий турнир : {link_next}\n"
             message += f"\nРезультаты доступны по ссылке: \nhttps://docs.google.com/spreadsheets/d/1IirhmoGPCFm8cPO_mqShkGMnFKS211V0AIaIyvu2YLs"
 
-        bot.send_message(CHAT_ID, message, timeout=10)
-        return True
+            bot.send_message(CHAT_ID, message, timeout=10)
+            return True
     except:
         raise Exception("")
 
