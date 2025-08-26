@@ -249,7 +249,7 @@ def main_func():
 
 if __name__ == "__main__":
     timezone = pytz.timezone('Asia/Yekaterinburg')
-    schedule.every().day.at("20:56").do(main_func)
+    schedule.every().day.at("20:05").do(main_func)
 
 
     print(f"Текущее время: {datetime.now(timezone)}")
