@@ -59,6 +59,7 @@ def fetch_tournament_data(tournament_id):
     except:
         raise Exception("")
 
+
     # Прогрузка всех страниц
     total_players = first_page.get("nbPlayers", 0)
     print(f"Общее количество игроков в турнире: {total_players}")
@@ -93,6 +94,17 @@ def fetch_tournament_data(tournament_id):
     else:
         raise Exception("Неизвестный формат даты начала турнира")
 
+    perf = first_page.get("perf", {})
+    speed = perf.get("key", "unknown")
+    print(f"Тип игры: {speed}")
+
+    if speed == "rapid":
+        min_games_required = 5
+    elif speed == "blitz":
+        min_games_required = 8
+    else:
+        min_games_required = 5
+
     # Получение игр
     games_count_dict = get_games_count_per_player(tournament_id)
 
@@ -102,7 +114,7 @@ def fetch_tournament_data(tournament_id):
         username = player.get("username", player.get("name", "Unknown")).lower()
         rank = player.get("rank", 0)
         nb_games = games_count_dict.get(username, 0)
-        played = 1 if nb_games >= 5 else 0
+        played = 1 if nb_games >= min_games_required else 0
 
         results.append({
             "username": username,
@@ -223,6 +235,9 @@ def update_sheet_with_results(results, tournament_date):
 
 # main
 def main_func():
+    if datetime.now().weekday() >= 5:  # 5 = суббота, 6 = воскресенье
+        return
+
     SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1IirhmoGPCFm8cPO_mqShkGMnFKS211V0AIaIyvu2YLs/edit"
     with open('tournaments.txt', 'r', encoding='utf-8') as file:
         link = file.readline().strip()
